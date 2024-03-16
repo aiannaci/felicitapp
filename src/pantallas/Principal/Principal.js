@@ -3,6 +3,7 @@ import { Button, Input } from 'react-native-elements'
 import React, { useEffect, useState } from 'react'
 import { styles } from "./PrincipalStyles"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native'
 
 export function Principal() {
 
@@ -17,12 +18,16 @@ export function Principal() {
         }
     };
 
+    const navigation = useNavigation();
+
     const cargarNombre = () => {
         if (nombre === "") {
             Alert.alert("Por favor ingresa tu nombre");
         } else {
             storeData(nombre);
             getData();
+            navigation.navigate("AppNavigation");
+
         }
 
     }
@@ -32,6 +37,7 @@ export function Principal() {
             const value = await AsyncStorage.getItem('felicitapp-nombre');
             if (value !== null) {
                 setNombreRecuperado(value);
+                navigation.navigate("AppNavigation");
             }
         } catch (e) {
             // error reading value
@@ -50,7 +56,6 @@ export function Principal() {
             <Text style={styles.descripcion}>Ingresa tu nombre para regalarte una frase</Text>
             <Input placeholder="Tu nombre..." onChangeText={(text) => setNombre(text)} />
             <Button title="Aceptar" buttonStyle={styles.btn} onPress={cargarNombre}></Button>
-            {nombreRecuperado !== "" && (<Text>El nombre almacenado es: {nombreRecuperado} </Text>)}
 
 
         </View>

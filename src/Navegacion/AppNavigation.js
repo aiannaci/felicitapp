@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Inicio } from '../pantallas/Inicio/Inicio';
 import { Cuenta } from '../pantallas/Cuenta/Cuenta';
 import { Icon } from 'react-native-elements';
+import { Favoritos } from '../pantallas/Favoritos/Favoritos';
 
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +17,17 @@ export function AppNavigation() {
                 component={Inicio}
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="home-outline" type="material-community" color="gray" />
+                        <Icon name="home" type="material-community" color="gray" />
+                    ),
+                }}
+            />
+
+            <Tab.Screen
+                name="Favoritos"
+                component={Favoritos}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="cards-heart" type="material-community" color="gray" />
                     ),
                 }}
             />
